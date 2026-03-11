@@ -1,0 +1,111 @@
+$spacing-main: 0.5em;
+$padding-main: 30px;
+$gap-large: 40px;
+
+@mixin center-flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $gap-large;
+}
+
+:root {
+  font-family: 'Times New Roman', Times, serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.about {
+  @include center-flex-col();
+  text-align: center;
+  padding: $padding-main;
+  max-width: 1440px;
+  margin: 0 auto;
+
+  &-heading {
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: $spacing-main;
+    margin: calc($spacing-main * -1) 0 0;
+  }
+  &-hr {
+    width: 80px;
+    margin: 0;
+  }
+
+  &-text {
+    margin: 0 auto;
+    max-width: 920px;
+  }
+}
+
+.features__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  flex-wrap: wrap;
+  gap: $gap-large;
+
+  &::before {
+    content: '';
+    height: 2px;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    width: 60%;
+    background: lightgray;
+  }
+
+  @media (max-width: 615px) {
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.feature {
+  @include center-flex-col();
+  flex: 1 1 0;
+  min-width: 250px;
+  max-width: 350px;
+  margin: 0 auto;
+
+  &__icon-wrapper {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    border: 2px solid rgb(236, 236, 236);
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 0 30px white;
+
+    &__icon {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__title {
+    text-transform: uppercase;
+    letter-spacing: $spacing-main;
+    white-space: nowrap;
+    margin: 0 calc($spacing-main * -1) 0 0;
+  }
+
+  &__text {
+    margin: 0;
+  }
+}

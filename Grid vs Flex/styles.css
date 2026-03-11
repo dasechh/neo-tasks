@@ -1,0 +1,46 @@
+:root {
+  --gap-main: 20px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-main);
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-main);
+  padding: 20px;
+  box-sizing: border-box;
+  min-width: 200px;
+  height: 200px;
+  flex: 1;
+  background-color: #f0f0f0;
+  border-radius: 16px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.card__name {
+    margin: 0;
+  font-weight: bold;
+  line-height: normal;
+  font-size: large;
+}
+
+.cards--flex {
+  display: flex;
+  gap: var(--gap-main);
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.cards--grid {
+  display: grid;
+  gap: var(--gap-main);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
