@@ -1,0 +1,31 @@
+.slider {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__list {
+    box-sizing: border-box;
+    padding: 16px;
+    display: flex;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    gap: 48px;
+    height: 400px;
+    scrollbar-width: none;
+    margin: 0;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+    width: fit-content;
+  }
+}

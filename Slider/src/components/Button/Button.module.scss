@@ -1,0 +1,32 @@
+.button {
+  display: inline;
+  cursor: pointer;
+
+  &__arrow {
+  cursor: pointer;
+  height: 48px;
+  width: 48px;
+  background: rgb(46, 116, 255);
+  border-radius: 50%;
+  border: none;
+  color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  svg {
+    height: 24px;
+    width: auto;
+  }
+
+  &-left {
+    transform: rotate(180deg);
+  }
+
+  &:disabled {
+    background: white;
+    border: 1px rgb(46, 116, 255) solid;
+    cursor: not-allowed;
+    color: rgb(46, 116, 255);
+  }
+  }
+}
