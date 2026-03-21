@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <form class="form" novalidate>
+        <legend class="form__legend">Contact Information</legend>
+        <div class="form__control">
+          <label for="fullName" class="form__label">Fullname <abbr title="required">*</abbr></label>
+          <input
+            type="text"
+            name="fullName"
+            id="fullName"
+            class="form__input"
+            required
+            placeholder="For example Doe" />
+          <span class="form__error"></span>
+        </div>
+        <div class="form__control">
+          <label for="password" class="form__label"
+            >Your password <abbr title="required">*</abbr></label
+          >
+          <input
+            type="password"
+            name="password"
+            id="password"
+            required
+            class="form__input"
+            placeholder="Enter the password" />
+          <span class="form__error"></span>
+        </div>
+        <button type="submit" class="form__button">Continue</button>
+      </form>
+    </main>
+    <script src="./main.js" defer></script>
+  </body>
+</html>
