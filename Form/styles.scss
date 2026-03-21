@@ -32,7 +32,7 @@ main {
   &__legend {
     margin-top: 1lh;
     font-weight: 600;
-    font-size:larger;
+    font-size: larger;
   }
 
   &__control {
@@ -81,6 +81,16 @@ main {
     cursor: pointer;
     font-weight: 600;
     font-size: small;
+    transition: transform 0.15s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+      background-color: rgb(72, 72, 255);
+    }
   }
 
   &__error {

@@ -73,6 +73,14 @@ main {
   cursor: pointer;
   font-weight: 600;
   font-size: small;
+  transition: transform 0.15s ease;
+}
+.form__button:hover {
+  transform: scale(1.05);
+}
+.form__button:active {
+  transform: scale(0.95);
+  background-color: rgb(72, 72, 255);
 }
 .form__error {
   color: red;
