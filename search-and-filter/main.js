@@ -1,16 +1,36 @@
+const listContent = [
+  'Item 1 Alex',
+  'Item 2 Olga',
+  'Item 3',
+  'Item 4 Anton',
+  'Item 5 HTML',
+  'Item 6 CSS',
+  'Item 7 JS',
+  'Item 8',
+  'Item 9',
+  'Item 10',
+];
+
+const searchList = document.querySelector('.search__list');
+
+function insertItems({filter}) {
+  listContent.forEach((text) => {
+    text = text.toLowerCase();
+    if (text.includes(filter)) {
+      const item = `<li class='search__item'>${text}</li>`;
+      searchList.insertAdjacentHTML('beforeend', item);
+    } else return;
+  });
+}
+
+function clearContainer({container}) {
+  container.replaceChildren();
+}
+
 const searchInput = document.getElementById('list-search');
-const listItems = document.querySelectorAll('.search__item');
 
 searchInput.addEventListener('input', (e) => {
-  const filter = e.target.value.toLowerCase();
-
-  listItems.forEach((i) => {
-    const itemText = i.textContent.toLowerCase();
-
-    if (!itemText.includes(filter)) {
-      i.style.display = 'none';
-    } else {
-      i.style.display = '';
-    }
-  });
+  const inputText = e.target.value.toLowerCase();
+  clearContainer({container: searchList});
+  insertItems({filter: inputText});
 });
