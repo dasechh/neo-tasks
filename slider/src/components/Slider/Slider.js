@@ -13,23 +13,32 @@ function prevScroll(sliderContainer, step) {
 
 function sliderScroll(sliderContainer, prevButton, nextButton) {
   const onScroll = () => {
-    if (sliderContainer.scrollLeft === 0) {
-      prevButton.disabled = true;
-    } else {
-      prevButton.disabled = false;
-    }
-    if (
-      Math.round(sliderContainer.scrollLeft) >=
-      sliderContainer.scrollWidth - sliderContainer.clientWidth
-    ) {
-      nextButton.disabled = true;
-    } else {
-      nextButton.disabled = false;
-    }
+    const scrollTolerance = 10;
+    const maxScroll = sliderContainer.scrollWidth - sliderContainer.clientWidth;
+    const leftScroll = sliderContainer.scrollLeft;
+
+    prevButton.disabled = leftScroll <= scrollTolerance;
+    nextButton.disabled = leftScroll >= maxScroll - scrollTolerance;
   };
 
   sliderContainer.addEventListener('scroll', onScroll);
   onScroll();
+}
+
+function addSliderButtons(controls, sliderList, scrollStep) {
+  const nextButton = Button({
+    buttonVariant: 'button__arrow',
+    buttonOnClick: () => nextScroll(sliderList, scrollStep),
+  });
+
+  const prevButton = Button({
+    buttonVariant: 'button__arrow',
+    buttonClass: 'button__arrow-left',
+    buttonOnClick: () => prevScroll(sliderList, scrollStep),
+  });
+
+  controls.append(prevButton, nextButton);
+  return {prevButton, nextButton};
 }
 
 export default async function Slider({container, cardsCount}) {
@@ -39,17 +48,17 @@ export default async function Slider({container, cardsCount}) {
     params: {_limit: cardsCount},
   });
 
-  const template = document.createElement('template');
-  template.innerHTML = `
-  <div class=${styles.slider}>
-    <ul class="${styles.slider__list}"></ul>
-    <div class='${styles.slider__controls}'></div>
-  </div>
-`;
+  const slider = `
+    <div class=${styles.slider}>
+      <ul class="${styles.slider__list}"></ul>
+      <div class='${styles.slider__controls}'></div>
+    </div>
+  `;
 
-  const slider = template.content.firstElementChild;
-  const controls = slider.querySelector(`.${styles.slider__controls}`);
-  const sliderList = slider.querySelector(`.${styles.slider__list}`);
+  container.insertAdjacentHTML('beforeend', slider);
+
+  const controls = container.querySelector(`.${styles.slider__controls}`);
+  const sliderList = container.querySelector(`.${styles.slider__list}`);
 
   if (cards && cards.length) {
     const sliderCards = cards.map((data) => {
@@ -58,29 +67,10 @@ export default async function Slider({container, cardsCount}) {
     sliderList.append(...sliderCards);
   }
 
-  let step = 0;
+  const firstCardSize = sliderList.querySelector('li').offsetWidth || 0;
+  const sliderListGap = parseInt(getComputedStyle(sliderList).gap) || 0;
+  const scrollStep = firstCardSize + sliderListGap;
 
-  requestAnimationFrame(() => {
-    const firstCardSize = sliderList.querySelector('li').offsetWidth || 0;
-    const sliderListGap = parseInt(getComputedStyle(sliderList).gap) || 0;
-    step = firstCardSize + sliderListGap;
-  });
-
-  const nextButton = Button({
-    buttonVariant: 'button__arrow',
-    buttonOnClick: () => nextScroll(sliderList, step),
-  });
-  const prevButton = Button({
-    buttonVariant: 'button__arrow',
-    buttonClass: 'button__arrow-left',
-    buttonOnClick: () => prevScroll(sliderList, step),
-  });
-
-  controls.append(prevButton, nextButton);
-
-  requestAnimationFrame(() => {
-    sliderScroll(sliderList, prevButton, nextButton);
-  });
-
-  container.append(slider);
+  const {prevButton, nextButton} = addSliderButtons(controls, sliderList, scrollStep);
+  sliderScroll(sliderList, prevButton, nextButton);
 }

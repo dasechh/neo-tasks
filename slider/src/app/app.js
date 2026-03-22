@@ -1,11 +1,11 @@
 import Slider from "../components/Slider";
 const main = document.querySelector('main');
 
-async function init() {
+function init() {
+    const sliderContainer = document.createElement('section');
+    Slider({container: sliderContainer, cardsCount:10});
 
-    const sliderContainer = document.getElementById('slider-1')
-
-    Slider({container: sliderContainer, cardsCount:10})
+    main.append(sliderContainer);
 }
 
 init()

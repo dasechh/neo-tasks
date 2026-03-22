@@ -1,7 +1,7 @@
 import styles from './Button.module.scss';
 
 const svgIcons = {
- button__arrow: `
+  button__arrow: `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 20">
   <path 
     d="M1 1.5L9.5 10L1 18.5" 
@@ -22,17 +22,10 @@ export default function Button({
   buttonClass = '',
   buttonOnClick,
 }) {
-  const template = document.createElement('template');
-
-  template.innerHTML = `
-  <button type="${buttonType}" class="${styles.button} ${styles[buttonVariant] || ''} ${styles[buttonClass] || ''}">
-  ${buttonText}
-  ${svgIcons[buttonVariant] || ''}
-  </button>
-  `;
-
-  const button = template.content.firstElementChild;
-
+  const button = document.createElement('button');
+  button.type = buttonType;
+  button.className = `${styles.button} ${styles[buttonVariant] || ''} ${styles[buttonClass]}`;
+  button.innerHTML = `${buttonText}${svgIcons[buttonVariant] || ''}`;
 
   if (buttonOnClick) {
     button.addEventListener('click', buttonOnClick);

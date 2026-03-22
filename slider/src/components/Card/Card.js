@@ -1,23 +1,18 @@
 import styles from './Card.module.scss';
 
-const failedImage = '/icons/failed-image.svg'
+const failedImage = '/icons/failed-image.svg';
 const titlePlaceholder = 'No title';
-const textPlaceholder = '';
 
-export default function Card ({cardImage, cardTitle, cardText})  {
-  const textElement = cardText
-    ? `
-    <p class="${styles.card__text}">${cardText || textPlaceholder}</p>
-  `
-    : '';
+export default function Card({cardImage, cardTitle, cardText}) {
+  const item = document.createElement('li');
+  item.classList.add(styles.card);
 
-    const template = document.createElement('template');
-    template.innerHTML = `
-    <li class='${styles.card}'>
+  const cardItems = `
         <img class='${styles.card__image}' src='${cardImage}' alt='${cardTitle}' loading='lazy' aria-hidden='true' onerror="this.onerror=null;this.src='${failedImage}'"/> 
         <h3 class='${styles.card__title}'>${cardTitle || titlePlaceholder}</h3>
-        ${textElement}
-    </li>`
-  return template.content.firstElementChild;
-};
+        ${cardText.trim().length ? `<p class="${styles.card__text}">${cardText.trim()}</p>` : ''}`;
+        
+  item.insertAdjacentHTML('beforeend', cardItems);
 
+  return item;
+}
